@@ -1,4 +1,7 @@
 import React from 'react';
+import './Cart.css'
+
+
 
 const Cart = (props) => {
     const cart = props.cart;
@@ -17,14 +20,18 @@ const Cart = (props) => {
         shipping = 4.99;
     }
 
+const vat = total * 0.08;
+
 
     return (
         <div>
           <h4>Order Summary</h4> 
            <p>Items Ordered: {cart.length}</p>
            <p>Total Price: {total}</p>
+           <p><small>Vat: {vat}</small></p>
            <p><small>Shipping Cost: {shipping}</small></p>
-            <p>Total: {total+shipping}</p>
+            <p>Total: {total + shipping + vat}</p>
+            <button className='review-button'>Review Cart</button>
         </div>
     );
 };
