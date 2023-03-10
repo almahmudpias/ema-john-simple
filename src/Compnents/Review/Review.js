@@ -4,6 +4,7 @@ import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
 import happyImage from '../../images/giphy.gif';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,11 +12,14 @@ import happyImage from '../../images/giphy.gif';
 const Review = () => {
     const [cart, setCart] = useState([]);
     const [orderPlaced, setOrderPlaced] = useState(false);
+    const history = useNavigate();
 
-    const handleOrder = () =>{
-        setCart([]);
-        setOrderPlaced(true);
-        clearLocalShoppingCart();
+
+    const handleProceedCheckout = () =>{
+        
+        history("/shipment");
+
+
     }
     const removeProduct = (productKey) => {
         const newCart = cart.filter(pd => pd.key !== productKey);
@@ -58,7 +62,7 @@ const Review = () => {
             </div>
             <div className="cart-container">
                 <Cart cart={cart}>
-                    <button className='main-button' onClick={handleOrder}>Place Order</button>
+                    <button className='main-button' onClick={handleProceedCheckout}>Check Out</button>
                 </Cart>
             </div>
             

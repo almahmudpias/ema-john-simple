@@ -20,3 +20,6 @@ nav a{
 nav a:hover{
     background-color: gray;
 }
+.btn1{
+    margin-bottom: 5px;
+}
