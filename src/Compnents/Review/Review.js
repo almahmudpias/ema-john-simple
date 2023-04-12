@@ -4,7 +4,9 @@ import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
 import happyImage from '../../images/giphy.gif';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AiFillDelete } from 'react-icons/ai';
+
 
 
 
@@ -46,13 +48,16 @@ const Review = () => {
 
     
     return (
+        <div>
+            
+
         <div className="shop-container">
             <div className="product-container">
                 {
                     cart.map(pc => <ReviewItem 
                         key={pc.key}
                         removeProduct={removeProduct}
-
+                       
                         
                         product={pc}></ReviewItem>)
                 }
@@ -60,12 +65,15 @@ const Review = () => {
                     thankYou
                 }
             </div>
-            <div className="cart-container">
-                <Cart cart={cart}>
-                    <button className='main-button' onClick={handleProceedCheckout}>Check Out</button>
-                </Cart>
-            </div>
+           
             
+        </div>
+        <div className="">
+                <Cart cart={cart} handleProceedCheckout={handleProceedCheckout}>
+                    
+                </Cart>
+                
+            </div> 
         </div>
     );
 };

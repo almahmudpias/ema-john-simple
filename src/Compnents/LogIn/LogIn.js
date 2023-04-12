@@ -4,8 +4,9 @@ import './LogIn.css';
 import { useContext, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { userContext } from '../../App';
-import { state, useLocation, useNavigate} from 'react-router-dom';
+import { Link, state, useLocation, useNavigate} from 'react-router-dom';
 import { createUserWithEmailAndPassword, handleGoogleSignIn, handleSignOut, handleWithFacebook, initializeLogInFrameWork, signInWithEmailAndPassword } from './LogIn_Manager';
+import { Container } from 'react-bootstrap';
 
 
 function LogIn() {
@@ -94,62 +95,60 @@ function LogIn() {
  
  
   return (
-    <div className='App App-header'>
-   
-      <h1>LOG IN HERE</h1>
-      <div className='form'>
-      <div className='box'>
+    <>
+     
 
-      <input type="checkbox" name='newUser' onChange={() => setNewUser(!newUser)} />
-      <label for="newUser">New User Sign-Up</label>
-      </div>
-      <form  onSubmit={handleSubmit}>
-        {
-        newUser && 
-        <div className='form-group'>
-          <label for="exampleInputEmail1">Name</label>
-          <input className='form-control' type="text" name='name' onBlur={handleChange} placeholder='Enter Your Name' />
+      <Container className="login-wrapper py-5 home-wrapper-2">
         
-        </div>}
-    
-        <div  className='form-group'>
-        <label for="exampleInputEmail1">Email address</label>
-        <input class='form-control' aria-describedby="emailHelp" type="text" name='email' onBlur={handleChange} placeholder='Enter Your Email' />
+        <div className="row">
+          <div className="col-12">
+            <div className="auth-card">
+              <h3 className="text-center mb-3">Login</h3>
+              <form onSubmit={handleSubmit} className="d-flex flex-column gap-15">
+                {
+                  newUser &&
+                  <div className='form-group'>
+                    <label for="exampleInputEmail1">Name</label>
+                    <input className='form-control' type="text" name='name' onBlur={handleChange} placeholder='Enter Your Name' />
 
+                  </div>}
+
+                <div className='form-group'>
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input class='form-control' aria-describedby="emailHelp" type="text" name='email' onBlur={handleChange} placeholder='Enter Your Email' />
+
+                </div>
+                <div className='form-group'>
+                  <label for="exampleInputPassword1">Password</label>
+                  <input className='form-control' type="password" name='password' onBlur={handleChange} placeholder='Enter Your Password' />
+
+                </div>
+
+                <div>
+                <Link to="/forgetpassword">Forgot Password?</Link><br />
+                  <br />
+                  <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
+                  <input class="button border-0" type="submit" value={newUser ? 'Create Acount' : 'Log In'} />
+                  <Link to="/signup" className="button text-white link">
+                      SignUp
+                    </Link>
+
+                  </div>
+                  
+                </div>
+
+              </form>
+              <div className="auth">
+              <button class="loginBtn loginBtn--google" onClick={googleSingIn}>Sign In With Google</button>
+             
+              <button class="loginBtn loginBtn--facebook" onClick={facebookSingIn}>Sign In With Facebook</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className='form-group'>
-        <label for="exampleInputPassword1">Password</label>
-        <input className='form-control' type="password" name='password' onBlur={handleChange} placeholder='Enter Your Password' />
-
-        </div>
-
-        <div>
-          <br />
-        <input class="btn btn-primary" type="submit" value={newUser ? 'Create Acount' : 'Log In'} />
-        </div>
-      
-      </form>
-      <br />
-      <div>
-      {
-      user.isSignIn ?
-        <button class="loginBtn loginBtn--google" onClick={signOut}>Sign Out</button> :
-        <button class="loginBtn loginBtn--google" onClick={googleSingIn}>Sign In With Google</button>
-      }
-      
-      <button class="loginBtn loginBtn--facebook" onClick={facebookSingIn}>Sign In With Facebook</button>
-      </div>
-      
-      {
-        user.error && <p style={{ color: 'red' }}>Email Already Register, Please Use New Email For Register! </p>
-      }
-      {
-        user.success && <p style={{ color: 'green' }}>User {newUser ? 'Created' : 'Logged In'} Succesfully</p>
-      }
-      </div>
-
-      
-    </div>
+        
+      </Container>
+    </>
     
   );
 }

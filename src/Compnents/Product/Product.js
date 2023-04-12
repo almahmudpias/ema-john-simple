@@ -1,31 +1,47 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import './Product.css';
 import { Link } from 'react-router-dom';
+import ReactStars from "react-rating-stars-component";
+import { TbCurrencyTaka } from 'react-icons/tb';
 
 const Product = ({product , handleAddProduct}) => {
     
-    const { img, name, seller, price, stock, key } = product;
+    const { img, name, seller, price, stock, key,star } = product;
+  
     return (
-        <div className="product">
-            <div>
-                <img src={img} alt="" />
-            </div>
-            <div>
-                <h4 className="product-name"><Link to={"/product/"+key}>{name}</Link></h4>
-                <br />
-                <p><small>by: {seller}</small></p>
-                <p>${price}</p>
-                <p><small>Only {stock} left in stock - Order soon</small></p>
-             <button 
-                    className="main-button" 
-                    onClick={() => handleAddProduct(product)}
-                    > 
-                        <FontAwesomeIcon icon={faShoppingCart} /> add to cart
-                    </button>
-            </div>
+        <div >
+            <div className="random-products mb-3 d-flex">
+                  <div className="w-50">
+                    
+                    <img
 
+                      src={img}
+                      className="img-fluid"
+                      alt="watch"
+                    />
+                  </div>
+                  <div className="w-50">
+                  <h6 className='seller'>{seller}</h6>
+                    <h5>
+                    <Link className='link' to={"/product/"+key}>{name}</Link>
+                    </h5>
+                    <ReactStars
+                      count={5}
+                      size={24}
+                      value={star}
+                      edit={false}
+                      activeColor="#ffd700"
+                    />
+                    <b className='product-price'><TbCurrencyTaka className='tk' size={25}/>{price}</b>
+                    <br />
+                    <button className='add-to-cart-button gap-15' onClick={() => handleAddProduct(product)}>
+                    <FontAwesomeIcon icon={faShoppingCart} /> add to cart
+                    </button>
+                  </div>
+                </div>
+            
         </div>
     );
 };

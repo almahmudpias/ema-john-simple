@@ -1,8 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import ReviewItem from '../ReviewItem/ReviewItem';
+import { TbCurrencyTaka } from 'react-icons/tb';
 
 
 const Cart = (props) => {
     const cart = props.cart;
+    const checkout = props.handleProceedCheckout;
     //console.log(cart);
     //const total = cart.reduce( (total, prd) => total + prd.price , 0 )
     let total = 0;
@@ -11,10 +15,10 @@ const Cart = (props) => {
         total = total + product.price * product.quantity;
     }
     let shipping = 0;
-    if(total > 35){
+    if(total > 1000){
         shipping = 0;
     }
-    else if(total > 15){
+    else if(total > 500){
         shipping = 4.99;
     }
     else if(total > 0){
@@ -29,18 +33,33 @@ const Cart = (props) => {
         return Number(precision);
     }
     return (
-        <div>
-            <h4>Order Summary</h4>
-            <p>Items Ordered: {cart.length}</p>
-            <p>Product Price: {formatNumber(total)}</p>
-            <p><small>Shiiping Cost: {shipping}</small></p>
-            <p><small>Tax + VAT: {tax}</small></p>
-            <p>Total Price: {grandTotal}</p>
+        <div className='margin'>
+             <div className="col-12 py-2 mt-4">
+            <div className="d-flex justify-content-between align-items-baseline">
+              <Link to="/shop" className="button link">
+                Continue To Shopping
+              </Link>
+              <div className="d-flex flex-column align-items-end">
+              <h4>Total: <TbCurrencyTaka size={25}/>{formatNumber(total)} </h4>
+              <h6>Shipping: {shipping}</h6>
+              <h6>Vat + Tax: {tax}</h6>
+                <h4>SubTotal:<TbCurrencyTaka size={25}/>{grandTotal}</h4>
+                <p>Taxes and shipping calculated at checkout</p>
+                <button onClick={checkout} className="button">
+                  Checkout
+                </button>
+              </div>
+            </div>
+            </div>
+            
             <br/>
             {
                 props.children
             }
+            
         </div>
+
+        
     );
 };
 
